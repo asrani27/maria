@@ -83,12 +83,12 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::post('superadmin/user/edit/{id}', [AdminController::class, 'user_update']);
     Route::get('superadmin/user/delete/{id}', [AdminController::class, 'user_delete']);
 
-    Route::get('superadmin/kecamatan', [AdminController::class, 'kecamatan']);
-    Route::get('superadmin/kecamatan/create', [AdminController::class, 'kecamatan_create']);
-    Route::post('superadmin/kecamatan/create', [AdminController::class, 'kecamatan_store']);
-    Route::get('superadmin/kecamatan/edit/{id}', [AdminController::class, 'kecamatan_edit']);
-    Route::post('superadmin/kecamatan/edit/{id}', [AdminController::class, 'kecamatan_update']);
-    Route::get('superadmin/kecamatan/delete/{id}', [AdminController::class, 'kecamatan_delete']);
+    Route::get('superadmin/absensi', [AdminController::class, 'absensi']);
+    Route::get('superadmin/absensi/create', [AdminController::class, 'absensi_create']);
+    Route::post('superadmin/absensi/create', [AdminController::class, 'absensi_store']);
+    Route::get('superadmin/absensi/edit/{id}', [AdminController::class, 'absensi_edit']);
+    Route::post('superadmin/absensi/edit/{id}', [AdminController::class, 'absensi_update']);
+    Route::get('superadmin/absensi/delete/{id}', [AdminController::class, 'absensi_delete']);
 
     Route::get('superadmin/kelurahan', [AdminController::class, 'kelurahan']);
     Route::get('superadmin/kelurahan/create', [AdminController::class, 'kelurahan_create']);

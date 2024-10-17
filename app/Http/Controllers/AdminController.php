@@ -9,8 +9,10 @@ use App\Models\Kasi;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Arsip;
+use App\Models\Cagar;
 use App\Models\Surat;
 use App\Models\Kepala;
+use App\Models\Absensi;
 use App\Models\Petugas;
 use App\Models\Kategori;
 use App\Models\Penyedia;
@@ -106,62 +108,57 @@ class AdminController extends Controller
         }
     }
 
-    public function kecamatan()
+    public function absensi()
     {
-        $data = Kecamatan::orderBy('id', 'DESC')->paginate(15);
-        return view('admin.kecamatan.index', compact('data'));
+        $data = Absensi::orderBy('id', 'DESC')->paginate(15);
+        return view('admin.absensi.index', compact('data'));
     }
-    public function kecamatan_create()
+    public function absensi_create()
     {
-        return view('admin.kecamatan.create');
+        $cagar = Cagar::get();
+        $petugas = Petugas::get();
+        return view('admin.absensi.create', compact('cagar', 'petugas'));
     }
-    public function kecamatan_edit($id)
+    public function absensi_edit($id)
     {
-        $data = Kecamatan::find($id);
-        if ($data->lat == null) {
-            $latlong = [
-                'lat' => -3.327460,
-                'lng' => 114.588515
-            ];
-        } else {
-            $latlong = [
-                'lat' => $data->lat,
-                'lng' => $data->long
-            ];
-        }
-        return view('admin.kecamatan.edit', compact('data', 'latlong'));
+        $data = Absensi::find($id);
+        $cagar = Cagar::get();
+        $petugas = Petugas::get();
+        return view('admin.absensi.edit', compact('data', 'cagar', 'petugas'));
     }
-    public function kecamatan_delete($id)
+    public function absensi_delete($id)
     {
-        $data = Kecamatan::find($id)->delete();
+        $data = Absensi::find($id)->delete();
         Session::flash('success', 'Berhasil Dihapus');
         return back();
     }
-    public function kecamatan_store(Request $req)
+    public function absensi_store(Request $req)
     {
-        $check = Kecamatan::where('nama', $req->nama)->first();
+
+        $check = Absensi::where('tanggal', $req->tanggal)->where('petugas_id', $req->petugas_id)->first();
         if ($check == null) {
-            $n = new Kecamatan();
-            $n->nama = $req->nama;
+            $n = new Absensi();
+            $n->tanggal = $req->tanggal;
+            $n->cagar_budaya_id = $req->cagar_budaya_id;
+            $n->petugas_id = $req->petugas_id;
             $n->save();
 
             Session::flash('success', 'Berhasil Disimpan');
-            return redirect('/superadmin/kecamatan');
+            return redirect('/superadmin/absensi');
         } else {
-            Session::flash('error', 'kecamatan ini sudah pernah di input');
+            Session::flash('error', 'absensi ini sudah pernah di input');
             return back();
         }
     }
-    public function kecamatan_update(Request $req, $id)
+    public function absensi_update(Request $req, $id)
     {
-        $data = Kecamatan::find($id);
-        $data->nama = $req->nama;
-        $data->koor = $req->koor;
-        $data->lat = $req->lat;
-        $data->long = $req->long;
+        $data = Absensi::find($id);
+        $data->tanggal = $req->tanggal;
+        $data->cagar_budaya_id = $req->cagar_budaya_id;
+        $data->petugas_id = $req->petugas_id;
         $data->save();
         Session::flash('success', 'Berhasil Diupdate');
-        return redirect('/superadmin/kecamatan');
+        return redirect('/superadmin/absensi');
     }
 
     public function kelurahan()
