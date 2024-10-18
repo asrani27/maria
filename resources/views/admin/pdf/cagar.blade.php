@@ -22,25 +22,33 @@
     <hr>
     <table width="100%">
         <tr style="text-align: center">
-            <td><strong>LAPORAN ABSENSI</strong></td>
+            <td><strong>LAPORAN CAGAR BUDAYA</strong></td>
         </tr>
     </table>
 <br/>
     <table width="100%" border=1 cellpadding="4" cellspacing="0">
         <tr style="text-align: center; font-weight:bold">
             <td>No</td>
-            <td>Tanggal</td>
-            <td>Cagar Budaya</td>
-            <td>Petugas</td>
-            <td>Lokasi</td>
+            <th>Foto</th>
+            <th>Nama Cagar Budaya</th>
+            <th>Kategori</th>
+            <th>Jadwal Buka</th>
         </tr>
         @foreach ($data as $key => $item)
             <tr style="font-size:14px">
                 <td>{{$key + 1}}</td>
-                <td>{{\Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y')}}</td>
-                <td>{{$item->cagar->nama}}</td>
-                <td>{{$item->petugas->nama}}</td>
-                <td>{{$item->cagar->lokasi}}</td>
+                <td><img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('/storage/foto/'.$item->foto))) }}" width="70px"></td>
+                <td>{{$item->nama}}</td>
+                <td>{{$item->kategori == null ? null : $item->kategori->nama}}</td>
+                <td>
+                  Senin : {{$item->senin}}  <br/>
+                  Selasa : {{$item->selasa}}<br/>
+                  Rabu : {{$item->rabu}}<br/>
+                  Kamis : {{$item->kamis}}<br/>
+                  Jumat : {{$item->jumat}}<br/>
+                  Sabtu : {{$item->sabtu}}<br/>
+                  Minggu : {{$item->minggu}}
+                </td>
             </tr>
         @endforeach
     </table>

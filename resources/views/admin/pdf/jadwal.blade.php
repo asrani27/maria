@@ -22,25 +22,23 @@
     <hr>
     <table width="100%">
         <tr style="text-align: center">
-            <td><strong>LAPORAN ABSENSI</strong></td>
+            <td><strong>LAPORAN JADWAL MONITORING</strong></td>
         </tr>
     </table>
 <br/>
     <table width="100%" border=1 cellpadding="4" cellspacing="0">
         <tr style="text-align: center; font-weight:bold">
             <td>No</td>
-            <td>Tanggal</td>
-            <td>Cagar Budaya</td>
-            <td>Petugas</td>
-            <td>Lokasi</td>
+            <th>Tanggal Monitor</th>
+            <th>Nama Cagar</th>
+            <th>Petugas Monitoring</th>
         </tr>
         @foreach ($data as $key => $item)
             <tr style="font-size:14px">
                 <td>{{$key + 1}}</td>
                 <td>{{\Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y')}}</td>
-                <td>{{$item->cagar->nama}}</td>
-                <td>{{$item->petugas->nama}}</td>
-                <td>{{$item->cagar->lokasi}}</td>
+                <td>{{$item->cagar == null ? '': $item->cagar->nama}}</td>
+                <td>{{$item->petugas == null ? '': $item->petugas->nama}}</td>
             </tr>
         @endforeach
     </table>

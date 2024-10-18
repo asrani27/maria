@@ -13,6 +13,7 @@ use App\Models\Cagar;
 use App\Models\Surat;
 use App\Models\Kepala;
 use App\Models\Absensi;
+use App\Models\Jadwal;
 use App\Models\Petugas;
 use App\Models\Kategori;
 use App\Models\Penyedia;
@@ -176,8 +177,37 @@ class AdminController extends Controller
     public function laporan_absensi()
     {
         $filename = Carbon::now()->format('d-m-Y-H-i-s') . '_absensi.pdf';
-
-        $pdf = Pdf::loadView('admin.pdf.absensi');
+        $data = Absensi::get();
+        $pdf = Pdf::loadView('admin.pdf.absensi', compact('data'))->setOption([
+            'enable_remote' => true,
+        ]);
+        return $pdf->stream($filename);
+    }
+    public function laporan_cagar()
+    {
+        $filename = Carbon::now()->format('d-m-Y-H-i-s') . '_absensi.pdf';
+        $data = Cagar::get();
+        $pdf = Pdf::loadView('admin.pdf.cagar', compact('data'))->setOption([
+            'enable_remote' => true,
+        ]);
+        return $pdf->stream($filename);
+    }
+    public function laporan_jadwal()
+    {
+        $filename = Carbon::now()->format('d-m-Y-H-i-s') . '_absensi.pdf';
+        $data = Jadwal::get();
+        $pdf = Pdf::loadView('admin.pdf.jadwal', compact('data'))->setOption([
+            'enable_remote' => true,
+        ]);
+        return $pdf->stream($filename);
+    }
+    public function laporan_hasil()
+    {
+        $filename = Carbon::now()->format('d-m-Y-H-i-s') . '_absensi.pdf';
+        $data = Jadwal::get();
+        $pdf = Pdf::loadView('admin.pdf.hasil', compact('data'))->setOption([
+            'enable_remote' => true,
+        ]);
         return $pdf->stream($filename);
     }
     public function print()

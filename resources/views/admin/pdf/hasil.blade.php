@@ -22,7 +22,7 @@
     <hr>
     <table width="100%">
         <tr style="text-align: center">
-            <td><strong>LAPORAN ABSENSI</strong></td>
+            <td><strong>LAPORAN HASIL MONITORING</strong></td>
         </tr>
     </table>
 <br/>
@@ -32,15 +32,23 @@
             <td>Tanggal</td>
             <td>Cagar Budaya</td>
             <td>Petugas</td>
-            <td>Lokasi</td>
+            <td>Hasil Monitor</td>
+            <td>Kondisi Cagar</td>
         </tr>
         @foreach ($data as $key => $item)
             <tr style="font-size:14px">
                 <td>{{$key + 1}}</td>
+                
                 <td>{{\Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y')}}</td>
                 <td>{{$item->cagar->nama}}</td>
                 <td>{{$item->petugas->nama}}</td>
-                <td>{{$item->cagar->lokasi}}</td>
+                <td>{!!$item->hasil!!}</td>
+                @if ($item->foto != null)
+                    
+                <td><img src="data:image/jpeg;base64,{{ base64_encode(file_get_contents(public_path('/storage/foto/'.$item->foto))) }}" width="70px"></td>
+                @else
+                    <td></td>
+                @endif
             </tr>
         @endforeach
     </table>
