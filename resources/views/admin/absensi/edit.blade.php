@@ -11,48 +11,56 @@ crossorigin=""/>
 
 <div class="row">
     <div class="col-md-12">
-        <a href="/superadmin/kecamatan" class="btn btn-flat btn-primary"><i class="fa fa-backward"></i> Kembali</a> <br /><br />
+        <a href="/superadmin/kecamatan" class="btn btn-flat btn-warning"><i class="fa fa-backward"></i> Kembali</a> <br /><br />
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-primary">
+        <div class="box">
             <div class="box-header">
                 <i class="ion ion-clipboard"></i>
                 <h3 class="box-title">Edit Data</h3>
             </div>
             <!-- /.box-header -->
-            <form class="form-horizontal" method="post" action="/superadmin/kecamatan/edit/{{$data->id}}">
+            <form class="form-horizontal" method="post" action="/superadmin/absensi/edit/{{$data->id}}">
                 @csrf
                 <div class="box-body">
+                    
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Kecamatan</label>
+                        <label class="col-sm-2 control-label">Tanggal</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" name="nama" value="{{$data->nama}}"  required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Nama Koordinator</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="koor" value="{{$data->koor}}"  required>
+                            <input type="date" class="form-control" name="tanggal" value="{{$data->tanggal}}" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Lokasi</label>
+                        <label class="col-sm-2 control-label">Cagar Budaya</label>
                         <div class="col-sm-10">
-
-                            <div id="map"></div>
-                            <input type="text" class="form-control" name="lat" value="{{$data->lat}}" id="lat" readonly>
-                            <input type="text" class="form-control" name="long" value="{{$data->long}}" id="long" readonly>
+                            <select class="form-control" name="cagar_budaya_id" required>
+                                <option value="">-</option>
+                                @foreach ($cagar as $item)
+                                <option value="{{$item->id}}" {{$data->cagar_budaya_id == $item->id ? 'selected':''}}>{{$item->nama}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Petugas</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="petugas_id" required>
+                                <option value="">-</option>
+                                @foreach ($petugas as $item)
+                                <option value="{{$item->id}}" {{$data->petugas_id == $item->id ? 'selected':''}}>{{$item->nama}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i> Update Data</button>
+                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"></i> Update Data</button>
                 </div>
                 <!-- /.box-footer -->
             </form>
@@ -64,38 +72,5 @@ crossorigin=""/>
 </div>
 @endsection
 @push('js')
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-crossorigin=""></script>
-<script>
-//   var map = L.map('map').setView([-3.327460, 114.588515], 14);
-//   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     maxZoom: 24,
-//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-// }).addTo(map);
 
-var latlng = {!!json_encode($latlong)!!}
-    
-    var map = L.map('map').setView(latlng, 14);
-    googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
-        maxZoom: 20,
-        subdomains:['mt0','mt1','mt2','mt3']
-    }).addTo(map);
-  
-    L.marker([latlng.lat,latlng.lng]).addTo(map);  
-
-    var theMarker = {};
-    
-    map.on('click', function(e) {
-        
-        document.getElementById("lat").value = e.latlng.lat;
-        document.getElementById("long").value = e.latlng.lng;
-        
-        if (theMarker != undefined) {
-            map.removeLayer(theMarker);
-        };
-        
-        theMarker = L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);  
-    });
-</script>
 @endpush

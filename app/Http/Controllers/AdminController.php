@@ -23,6 +23,7 @@ use App\Models\Registrasi;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use App\Models\KoordinatorTPS;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -166,211 +167,19 @@ class AdminController extends Controller
         $data = Kelurahan::orderBy('id', 'DESC')->paginate(15);
         return view('admin.kelurahan.index', compact('data'));
     }
-    public function kelurahan_create()
-    {
-        $kec = Kecamatan::get();
-        return view('admin.kelurahan.create', compact('kec'));
-    }
-    public function kelurahan_edit($id)
-    {
-        $data = Kelurahan::find($id);
-        $kec = Kecamatan::get();
-        return view('admin.kelurahan.edit', compact('data', 'kec'));
-    }
-    public function kelurahan_delete($id)
-    {
-        $data = Kelurahan::find($id)->delete();
-        Session::flash('success', 'Berhasil Dihapus');
-        return back();
-    }
-    public function kelurahan_store(Request $req)
-    {
-        $check = Kelurahan::where('nama', $req->nama)->first();
-        if ($check == null) {
-            $n = new Kelurahan();
-            $n->kecamatan_id = $req->kecamatan_id;
-            $n->nama = $req->nama;
-            $n->save();
-
-            Session::flash('success', 'Berhasil Disimpan');
-            return redirect('/superadmin/kelurahan');
-        } else {
-            Session::flash('error', 'kelurahan ini sudah pernah di input');
-            return back();
-        }
-    }
-    public function kelurahan_update(Request $req, $id)
-    {
-        $data = Kelurahan::find($id);
-        $data->kecamatan_id = $req->kecamatan_id;
-        $data->nama = $req->nama;
-        $data->koor = $req->koor;
-        $data->save();
-        Session::flash('success', 'Berhasil Diupdate');
-        return redirect('/superadmin/kelurahan');
-    }
-
-    public function rt()
-    {
-        $data = RT::orderBy('id', 'DESC')->paginate(15);
-        return view('admin.rt.index', compact('data'));
-    }
-    public function rt_create()
-    {
-        $kel = Kelurahan::get();
-        return view('admin.rt.create', compact('kel'));
-    }
-    public function rt_edit($id)
-    {
-        $data = RT::find($id);
-        $kel = Kelurahan::get();
-        return view('admin.rt.edit', compact('data', 'kel'));
-    }
-    public function rt_delete($id)
-    {
-        $data = RT::find($id)->delete();
-        Session::flash('success', 'Berhasil Dihapus');
-        return back();
-    }
-    public function rt_store(Request $req)
-    {
-        $check = RT::where('kelurahan_id', $req->kelurahan_id)->where('nomor', (int)$req->nomor)->first();
-        if ($check == null) {
-            $n = new RT();
-            $n->kelurahan_id = $req->kelurahan_id;
-            $n->nama = $req->nama;
-            $n->nomor = $req->nomor;
-            $n->telp = $req->telp;
-            $n->save();
-
-            Session::flash('success', 'Berhasil Disimpan');
-            return redirect('/superadmin/rt');
-        } else {
-            Session::flash('error', 'rt ini sudah pernah di input');
-            return back();
-        }
-    }
-    public function rt_update(Request $req, $id)
-    {
-        $data = RT::find($id);
-        $data->kelurahan_id = $req->kelurahan_id;
-        $data->nama = $req->nama;
-        $data->nomor = $req->nomor;
-        $data->telp = $req->telp;
-        $data->save();
-        Session::flash('success', 'Berhasil Diupdate');
-        return redirect('/superadmin/rt');
-    }
-
-    public function sm()
-    {
-        $data = SM::orderBy('id', 'DESC')->paginate(15);
-        return view('admin.sm.index', compact('data'));
-    }
-    public function sm_create()
-    {
-        $rt = RT::get();
-        return view('admin.sm.create', compact('rt'));
-    }
-    public function sm_edit($id)
-    {
-        $data = SM::find($id);
-        $rt = RT::get();
-        return view('admin.sm.edit', compact('data', 'rt'));
-    }
-    public function sm_delete($id)
-    {
-        $data = SM::find($id)->delete();
-        Session::flash('success', 'Berhasil Dihapus');
-        return back();
-    }
-    public function sm_store(Request $req)
-    {
-        $check = SM::where('telp', $req->telp)->first();
-        if ($check == null) {
-            $n = new SM();
-            $n->kecamatan_id = RT::find($req->rt_id)->kelurahan->kecamatan->id;
-            $n->kelurahan_id = RT::find($req->rt_id)->kelurahan->id;
-            $n->rt_id = $req->rt_id;
-            $n->nik = $req->nik;
-            $n->nama = $req->nama;
-            $n->telp = $req->telp;
-            $n->user_id = Auth::user()->id;
-            $n->save();
-
-            Session::flash('success', 'Berhasil Disimpan');
-            return redirect('/superadmin/sm');
-        } else {
-            Session::flash('error', 'Telp ini sudah pernah di input');
-            return back();
-        }
-    }
-    public function sm_update(Request $req, $id)
-    {
-        $data = SM::find($id);
-        $data->kecamatan_id = RT::find($req->rt_id)->kelurahan->kecamatan->id;
-        $data->kelurahan_id = RT::find($req->rt_id)->kelurahan->id;
-        $data->rt_id = $req->rt_id;
-        $data->nik = $req->nik;
-        $data->nama = $req->nama;
-        $data->telp = $req->telp;
-        $data->user_id = Auth::user()->id;
-        $data->save();
-        Session::flash('success', 'Berhasil Diupdate');
-        return redirect('/superadmin/sm');
-    }
-
-    public function koordinatortps()
-    {
-        $data = KoordinatorTPS::orderBy('id', 'DESC')->paginate(15);
-        return view('admin.koordinatortps.index', compact('data'));
-    }
-    public function koordinatortps_create()
-    {
-        $kel = Kelurahan::get();
-        return view('admin.koordinatortps.create', compact('kel'));
-    }
-    public function koordinatortps_edit($id)
-    {
-        $data = KoordinatorTPS::find($id);
-        $kel = Kelurahan::get();
-        return view('admin.koordinatortps.edit', compact('data', 'kel'));
-    }
-    public function koordinatortps_delete($id)
-    {
-        $data = KoordinatorTPS::find($id)->delete();
-        Session::flash('success', 'Berhasil Dihapus');
-        return back();
-    }
-    public function koordinatortps_store(Request $req)
-    {
-        $check = KoordinatorTPS::where('kelurahan_id', $req->kelurahan_id)->where('tps', $req->tps)->first();
-        if ($check == null) {
-            KoordinatorTPS::create($req->all());
-            Session::flash('success', 'Berhasil Disimpan');
-            return redirect('/superadmin/koordinatortps');
-        } else {
-            Session::flash('info', 'nomor tps di kelurahan ini sudah di input');
-            return back();
-        }
-    }
-
-    public function koordinatortps_update(Request $req, $id)
-    {
-        KoordinatorTPS::find($id)->update($req->all());
-        Session::flash('success', 'Berhasil Diupdate');
-        return redirect('/superadmin/koordinatortps');
-    }
-
 
 
     public function laporan()
     {
-        $kelurahan = Kelurahan::get();
-        $koordinator = Pendaftar::get();
-        return view('admin.laporan.index', compact('kelurahan', 'koordinator'));
+        return view('admin.laporan.index');
     }
+    public function laporan_absensi()
+    {
+        $filename = Carbon::now()->format('d-m-Y-H-i-s') . '_absensi.pdf';
 
+        $pdf = Pdf::loadView('admin.pdf.absensi');
+        return $pdf->stream($filename);
+    }
     public function print()
     {
         $kelurahan = Kelurahan::get();

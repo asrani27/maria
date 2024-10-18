@@ -97,66 +97,12 @@ Route::group(['middleware' => ['auth', 'role:superadmin']], function () {
     Route::post('superadmin/kelurahan/edit/{id}', [AdminController::class, 'kelurahan_update']);
     Route::get('superadmin/kelurahan/delete/{id}', [AdminController::class, 'kelurahan_delete']);
 
-    Route::get('superadmin/rt', [AdminController::class, 'rt']);
-    Route::get('superadmin/rt/create', [AdminController::class, 'rt_create']);
-    Route::post('superadmin/rt/create', [AdminController::class, 'rt_store']);
-    Route::get('superadmin/rt/edit/{id}', [AdminController::class, 'rt_edit']);
-    Route::post('superadmin/rt/edit/{id}', [AdminController::class, 'rt_update']);
-    Route::get('superadmin/rt/delete/{id}', [AdminController::class, 'rt_delete']);
-
-    Route::get('superadmin/sm', [AdminController::class, 'sm']);
-    Route::get('superadmin/sm/create', [AdminController::class, 'sm_create']);
-    Route::post('superadmin/sm/create', [AdminController::class, 'sm_store']);
-    Route::get('superadmin/sm/edit/{id}', [AdminController::class, 'sm_edit']);
-    Route::post('superadmin/sm/edit/{id}', [AdminController::class, 'sm_update']);
-    Route::get('superadmin/sm/delete/{id}', [AdminController::class, 'sm_delete']);
-
-    Route::get('superadmin/surat', [AdminController::class, 'surat']);
-    Route::get('superadmin/surat/create', [AdminController::class, 'surat_create']);
-    Route::post('superadmin/surat/create', [AdminController::class, 'surat_store']);
-    Route::get('superadmin/surat/edit/{id}', [AdminController::class, 'surat_edit']);
-    Route::post('superadmin/surat/edit/{id}', [AdminController::class, 'surat_update']);
-    Route::get('superadmin/surat/delete/{id}', [AdminController::class, 'surat_delete']);
-
-    Route::get('superadmin/pemeriksaan', [AdminController::class, 'pemeriksaan']);
-    Route::get('superadmin/pemeriksaan/create', [AdminController::class, 'pemeriksaan_create']);
-    Route::get('superadmin/pemeriksaan/periksa/{id}', [AdminController::class, 'pemeriksaan_create2']);
-    Route::post('superadmin/pemeriksaan/create2', [AdminController::class, 'pemeriksaan_store']);
-    Route::get('superadmin/pemeriksaan/edit/{id}', [AdminController::class, 'pemeriksaan_edit']);
-    Route::post('superadmin/pemeriksaan/edit/{id}', [AdminController::class, 'pemeriksaan_update']);
-    Route::get('superadmin/pemeriksaan/delete/{id}', [AdminController::class, 'pemeriksaan_delete']);
-    Route::get('superadmin/pemeriksaan/cetak/{id}', [AdminController::class, 'pemeriksaan_cetak']);
-
-    Route::get('superadmin/registrasi', [AdminController::class, 'registrasi']);
-    Route::get('superadmin/registrasi/create', [AdminController::class, 'registrasi_create']);
-    Route::post('superadmin/registrasi/create', [AdminController::class, 'registrasi_store']);
-    Route::get('superadmin/registrasi/edit/{id}', [AdminController::class, 'registrasi_edit']);
-    Route::post('superadmin/registrasi/edit/{id}', [AdminController::class, 'registrasi_update']);
-    Route::get('superadmin/registrasi/delete/{id}', [AdminController::class, 'registrasi_delete']);
-
-    Route::get('superadmin/koordinatortps', [AdminController::class, 'koordinatortps']);
-    Route::get('superadmin/koordinatortps/create', [AdminController::class, 'koordinatortps_create']);
-    Route::post('superadmin/koordinatortps/create', [AdminController::class, 'koordinatortps_store']);
-    Route::get('superadmin/koordinatortps/edit/{id}', [AdminController::class, 'koordinatortps_edit']);
-    Route::post('superadmin/koordinatortps/edit/{id}', [AdminController::class, 'koordinatortps_update']);
-    Route::get('superadmin/koordinatortps/delete/{id}', [AdminController::class, 'koordinatortps_delete']);
-
-
-    Route::get('superadmin/ketuart', [AdminController::class, 'rt']);
-    Route::get('superadmin/ketuart/create', [AdminController::class, 'rt_create']);
-    Route::post('superadmin/ketuart/create', [AdminController::class, 'rt_store']);
-    Route::get('superadmin/ketuart/edit/{id}', [AdminController::class, 'rt_edit']);
-    Route::post('superadmin/ketuart/edit/{id}', [AdminController::class, 'rt_update']);
-    Route::get('superadmin/ketuart/delete/{id}', [AdminController::class, 'rt_delete']);
-
-    Route::get('superadmin/timses/grup', [GrupController::class, 'index']);
-    Route::get('superadmin/timses/grup/create', [GrupController::class, 'create']);
-    Route::post('superadmin/timses/grup/create', [GrupController::class, 'store']);
-    Route::get('superadmin/timses/grup/edit/{id}', [GrupController::class, 'edit']);
-    Route::post('superadmin/timses/grup/edit/{id}', [GrupController::class, 'update']);
-    Route::get('superadmin/timses/grup/delete/{id}', [GrupController::class, 'delete']);
 
     Route::get('superadmin/laporan', [AdminController::class, 'laporan']);
+    Route::get('superadmin/laporan/absensi', [AdminController::class, 'laporan_absensi']);
+    Route::get('superadmin/laporan/jadwal', [AdminController::class, 'laporan_jadwal']);
+    Route::get('superadmin/laporan/cagar', [AdminController::class, 'laporan_cagar']);
+    Route::get('superadmin/laporan/hasil', [AdminController::class, 'laporan_hasil']);
     Route::get('laporan/print', [AdminController::class, 'print']);
     Route::get('laporan/print2', [AdminController::class, 'print2']);
 });
