@@ -74,10 +74,14 @@ class PetugasController extends Controller
     {
 
         $n = Petugas::where('id', $id)->first();
+        $n->nip = $req->nip;
         $n->nama = $req->nama;
         $n->telp = $req->telp;
         $n->save();
 
+        Petugas::where('id', $id)->first()->user->update([
+            'username' => $req->nip,
+        ]);
         Session::flash('success', 'berhasil di simpan');
         return redirect('/superadmin/petugas');
     }
