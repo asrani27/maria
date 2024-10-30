@@ -44,5 +44,20 @@
             </tr>
         @endforeach
     </table>
+    <br/>
+    <table width="100%">
+        <tr>
+            <td width="10%"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Banjarmasin, {{\Carbon\Carbon::now()->translatedFormat('d F Y')}} 
+                <br/>
+                Kepala Bidang Kebudayaan<br/> Dinas Kebudayaan Kepemudaan Olahraga Dan Pariwisata
+                <br/><br/><br/><br/>
+                (..................................)
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

@@ -3,16 +3,68 @@
 
 @endpush
 @section('content')
-<a href="/superadmin/refresh" class="btn btn-md btn-danger"><i class="fa fa-refresh"></i>&nbsp;Refresh</a><br/><br/>
+<div class="row text-center">
+  <H2>SELAMAT DATANG DI APLIKASI <br/>DISBUDPORAPAR</H2>
+</div>
+<br/>
+<br/>
 <div class="row">
-  <div class="col-md-12">
-  <div class="box">  
-      <div class="box-body no-padding ">  
-        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-      </div>
-  </div>
-  </div>
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
 
+      <div class="info-box-content">
+        <span class="info-box-text">PETUGAS</span>
+        <span class="info-box-number">{{petugas()}}</span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-red"><i class="fa fa-list"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">KATEGORI</span>
+        <span class="info-box-number">{{kategori()}}</span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+
+  <!-- fix for small devices only -->
+  <div class="clearfix visible-sm-block"></div>
+
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-green"><i class="fa fa-building"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">CAGAR BUDAYA</span>
+        <span class="info-box-number">{{cagar()}}</span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
+  <div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-yellow"><i class="fa fa-calendar"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">JADWAL MONITORING</span>
+        <span class="info-box-number">{{jadwal()}}</span>
+      </div>
+      <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+  </div>
+  <!-- /.col -->
 </div>
 
 

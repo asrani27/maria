@@ -1,8 +1,26 @@
 <?php
 
-use App\Models\Tkrk;
+use App\Models\Cagar;
+use App\Models\Jadwal;
+use App\Models\Kategori;
+use App\Models\Petugas;
 
-function newKrk()
+function petugas()
 {
-    return Tkrk::where('status', 0)->count();
+    return Petugas::count();
+}
+
+function cagar()
+{
+    return Cagar::count();
+}
+
+function jadwal()
+{
+    return Jadwal::count();
+}
+
+function kategori()
+{
+    return Kategori::count();
 }
