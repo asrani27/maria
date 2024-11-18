@@ -17,6 +17,7 @@
             <a href="/superadmin/laporan/cagar" class="btn btn-md btn-success" target="_blank">LAPORAN CAGAR BUDAYA</a>
             <a href="/superadmin/laporan/jadwal" class="btn btn-md btn-success" target="_blank">LAPORAN JADWAL MONITORING</a>
             <a href="/superadmin/laporan/hasil" class="btn btn-md btn-success" target="_blank">LAPORAN HASIL MONITORING</a>
+            <a href="/superadmin/laporan/pengunjung" class="btn btn-md btn-success" target="_blank">LAPORAN PENGUNJUNG</a>
             {{-- <form method="get" action="/laporan/print" target="_blank">
               @csrf
               <select name="kelurahan_id" class="form-control select2" required>
