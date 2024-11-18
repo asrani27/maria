@@ -39,8 +39,8 @@
                 <td>{{$key + 1}}</td>
                 <td>{{\Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y')}}</td>
                 <td>{{$item->cagar == null ? '': $item->cagar->nama}}</td>
-                <td>{{$item->pengunjung_pria}}</td>
-                <td>{{$item->pengunjung_wanita}}</td>
+                <td style="text-align: center">{{$item->pengunjung_pria}}</td>
+                <td style="text-align: center">{{$item->pengunjung_wanita}}</td>
             </tr>
         @endforeach
     </table>

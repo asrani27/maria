@@ -210,6 +210,15 @@ class AdminController extends Controller
         ]);
         return $pdf->stream($filename);
     }
+    public function laporan_pengunjung()
+    {
+        $filename = Carbon::now()->format('d-m-Y-H-i-s') . '_pengunjung.pdf';
+        $data = Jadwal::get();
+        $pdf = Pdf::loadView('admin.pdf.pengunjung', compact('data'))->setOption([
+            'enable_remote' => true,
+        ]);
+        return $pdf->stream($filename);
+    }
     public function print()
     {
         $kelurahan = Kelurahan::get();
